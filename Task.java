@@ -1,14 +1,16 @@
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     private String taskName;
     private String taskDescription;
     private boolean isCompleted;
     private int id;
 
-    public Task(String taskName,String taskDescription,int id){
+    public Task(String taskName,String taskDescription){
         this.taskName=taskName;
         this.taskDescription=taskDescription;
         this.isCompleted=false;
-        this.id=id;
+        this.id=0;
     }
 
     public String getTaskName(){
@@ -37,6 +39,10 @@ public class Task {
 
     public int getId(){
         return id;
+    }
+
+    public void setId(int count){
+        id=count;
     }
 
     public String toString(){

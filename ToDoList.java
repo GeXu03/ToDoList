@@ -1,13 +1,15 @@
+import java.io.*;
 import java.util.ArrayList;
 
 public class ToDoList {
     private ArrayList<Task> tasks;
-
+    private int count=0;
     public ToDoList(){
         this.tasks=new ArrayList<>();
     }
 
     public void addTask(Task task){
+        task.setId(count++);
         tasks.add(task);
     }
 
@@ -32,6 +34,25 @@ public class ToDoList {
             tasks.remove(index);
         }else{
             System.out.println("Invalid task index.");
+        }
+    }
+
+    public void saveToFile(String fileName){
+        try(ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(fileName))){
+            oos.writeObject(tasks);
+            System.out.println("ToDoList saved to file: "+fileName);
+        }catch (IOException e){
+            System.out.println("Error saving ToDoList to file: "+e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void loadFromFile(String fileName){
+        try(ObjectInputStream ois=new ObjectInputStream(new FileInputStream(fileName))){
+            tasks=(ArrayList<Task>)ois.readObject();
+            System.out.println("ToDoList loaded from file: "+fileName);
+        }catch (IOException|ClassNotFoundException e){
+            System.out.println("Error loading ToDoList from file: "+e.getMessage());
         }
     }
 }

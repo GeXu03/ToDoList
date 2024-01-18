@@ -2,9 +2,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        int count=0;
         ToDoList toDoList=new ToDoList();
         Scanner scanner=new Scanner(System.in);
+
+        toDoList.loadFromFile("todolist.dat");
 
         while(true){
             System.out.println("To-Do List Menu:");
@@ -24,7 +25,7 @@ public class Main {
                     String taskName= scanner.nextLine();
                     System.out.println("Enter task description: ");
                     String taskDescription=scanner.nextLine();
-                    Task newTask=new Task(taskName,taskDescription,count++);
+                    Task newTask=new Task(taskName,taskDescription);
                     toDoList.addTask(newTask);
                     break;
                 case 2:
@@ -40,6 +41,7 @@ public class Main {
                     toDoList.removeTask(scanner.nextInt());
                     break;
                 case 5:
+                    toDoList.saveToFile("todolist.dat");
                     System.out.println("Exiting To-Do List. Goodbye!");
                     System.exit(0);
                 default:
